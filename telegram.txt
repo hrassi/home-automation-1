@@ -1,0 +1,21 @@
+how to use telegram.py
+
+
+import telegram
+import time
+
+TOKEN = "YOUR_BOT_TOKEN"
+CHAT_ID = "YOUR_CONTROLLER_CHAT_ID"
+DEVICE = "ESP1"
+
+telegram.send_telegram(TOKEN, CHAT_ID, DEVICE, "ESP started")
+
+offset = 0
+
+while True:
+    message, offset = telegram.receive_telegram(TOKEN, offset)
+
+    if message:
+        print("Received command:", message)
+
+    time.sleep(1)

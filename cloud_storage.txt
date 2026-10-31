@@ -1,0 +1,33 @@
+this is how to use cloud storage :
+
+
+import cloud_storage
+
+
+# Google Cloud Storage configuration: 
+
+GCS_ACCESS_ID = "GOOG1*************OFQVRV6SBDFK5O24EPWZ"
+GCS_SECRET_KEY = "3YWx3****************U0j5u"
+GCS_BUCKET = "sam_cloud_1"
+GCS_REGION = "us-central1"
+
+
+# Synchronize UTC clock for Google authentication
+if cloud_storage.sync_time():
+
+    # Write JSON file
+    data = {"device": "ESP1", "value": 123}
+    ok = cloud_storage.write_json(
+        GCS_ACCESS_ID, GCS_SECRET_KEY, GCS_BUCKET, GCS_REGION,
+        "test_esp.json", data
+    )
+
+    # Read JSON file back
+    if ok:
+        result = cloud_storage.read_json(
+            GCS_ACCESS_ID, GCS_SECRET_KEY, GCS_BUCKET, GCS_REGION,
+            "test_esp.json"
+        )
+        print("Read result:", result)
+else:
+    print("Cloud test stopped: clock not synchronized")
